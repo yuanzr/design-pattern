@@ -1,7 +1,7 @@
 package com.design;
 
-import com.design.behavioral.strategy.StrategyEnum;
-import com.design.behavioral.strategy.service.StrategyService;
+import com.design.behavioral.strategy.utils.PayStrategyBeanEnum;
+import com.design.behavioral.strategy.service.PayChannelService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,14 +15,17 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class StrategyTest {
+
     @Autowired
-    private StrategyService strategyService;
+    private PayChannelService payChannelService;
 
     @Test
     void contextLoads() {
-        strategyService.doWork(StrategyEnum.CAR.getStrategyType());
-        strategyService.doWork(StrategyEnum.GIFT.getStrategyType());
-        strategyService.doWork(StrategyEnum.HEADWEAR.getStrategyType());
     }
 
+    @Test
+    void strategyTest() {
+        payChannelService.excutePayByBeanUtils(PayStrategyBeanEnum.ALIPAY.getCode());
+//        payChannelService.excutePayByFactory(PayStrategyFactoryEnum.ALIPAY.getCode());
+    }
 }
