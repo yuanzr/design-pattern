@@ -1,19 +1,27 @@
 package com.design.structural.chain.impl;
 
-import com.design.structural.chain.GateWayChainHandler;
+import com.design.structural.chain.service.RequesChainHandler;
+import com.design.structural.chain.model.ChainRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * 网关限流
  */
 @Slf4j
-public class CurrentLimitHandler extends GateWayChainHandler {
+public class CurrentLimitHandler extends RequesChainHandler {
 
+    private int specialNumber;
+
+    public CurrentLimitHandler() {
+    }
+
+    public CurrentLimitHandler(String name,int specialNumber) {
+        super(name);
+        this.specialNumber = specialNumber;
+    }
 
     @Override
-    public void excute(StringBuilder request) {
-        request = request.append("{limit}=》");
-      log.info("1.对接口进行限流。。。{}",request.toString());
+    public Boolean excuteHandle(ChainRequest request) {
+        return request.getNumber() == specialNumber ? true : false;
     }
 }
